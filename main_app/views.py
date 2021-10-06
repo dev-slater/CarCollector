@@ -2,7 +2,7 @@ from django.views.generic.base import TemplateView
 from django.shortcuts import render
 from django.views import View # <- View class to handle requests
 from django.http import HttpResponse # <- a class to handle sending a type of response
-
+from .models import Car
 
 # Create your views here.
 
@@ -15,3 +15,17 @@ class About(TemplateView):
         
 class Index(TemplateView):
         template_name = "index.html"
+        
+class Car:
+        def __init__(self, name, image, bio):
+                self.name = name
+                self.image = image
+                self.bio = bio
+
+class CarList(TemplateView):
+    template_name = "car_list.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["cars"] = Car.objects.all()
+        return context
