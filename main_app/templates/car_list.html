@@ -4,16 +4,24 @@
 
 <h1 class="title pt-5">Trending Cars</h1>
 <div class="gallery">
-  {% for car in cars %}
+  {% for Cars in Cars %}
   <a href="">
     <div class="card">
       <div class="card-image">
         <figure class="image is-square">
-          <img src="{{car.image}}" alt="{{car.name}}" />
+          <img src="{{Cars.img}}" alt="{{Cars.name}}" />
         </figure>
       </div>
       <div class="card-header">
-        <p class="card-header-title">{{car.name}}</p>
+        <p class="card-header-title">{{Cars.name}}</p>
+        {% if Cars.vintage_car %}
+  <div class="icon-text">
+    <span class="icon has-text-info">
+      <i class="fas fa-check-circle"></i>
+    </span>
+    <span>Vintage</span>
+  </div>
+  {% endif %}
       </div>
     </div>
   </a>
