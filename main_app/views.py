@@ -1,9 +1,11 @@
+from django.urls import reverse
 from django.views.generic.base import TemplateView
 from django.shortcuts import render
 from django.views import View # <- View class to handle requests
 from django.http import HttpResponse # <- a class to handle sending a type of response
 from .models import Car as Cars
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic import DetailView
 
 # Create your views here.
 
@@ -40,10 +42,23 @@ class CarList(TemplateView):
                 context["header"] = "Trending Cars"
         return context
 
+class CarDetail(DetailView):
+        model = Cars
+        template_name = "car_detail.html"
+        
 class CarCreate(CreateView):
         model = Cars
         fields = ['name','img','bio','vintage_car']
         template_name = "car_create.html"
-        success_url = "/cars/"
+        
+        def get_success_url(self):
+                return reverse('car_detail', kwargs={'pk': self.object.pk})
         
         
+class CarUpdate(UpdateView):
+        model = Cars
+        fields = ['name','img','bio','vintage_car']
+        template_name = "car_update.html"
+        # success_url = "/cars/"
+        def get_success_url(self):
+                return reverse('car_detail', kwargs={'pk': self.object.pk})
