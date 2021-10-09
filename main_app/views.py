@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.views import View # <- View class to handle requests
 from django.http import HttpResponse # <- a class to handle sending a type of response
 from .models import Car as Cars
+from django.views.generic.edit import CreateView
 
 # Create your views here.
 
@@ -21,6 +22,7 @@ class Car:
                 self.name = name
                 self.image = image
                 self.bio = bio
+                self.vintage_car = vintage_car
 
 class CarList(TemplateView):
     template_name = "car_list.html"
@@ -37,3 +39,11 @@ class CarList(TemplateView):
                 context["Cars"] = Cars.objects.all()
                 context["header"] = "Trending Cars"
         return context
+
+class CarCreate(CreateView):
+        model = Cars
+        fields = ['name','img','bio','vintage_car']
+        template_name = "car_create.html"
+        success_url = "/cars/"
+        
+        
