@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.views import View # <- View class to handle requests
 from django.http import HttpResponse # <- a class to handle sending a type of response
 from .models import Car as Cars
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView
 
 # Create your views here.
@@ -62,3 +62,8 @@ class CarUpdate(UpdateView):
         # success_url = "/cars/"
         def get_success_url(self):
                 return reverse('car_detail', kwargs={'pk': self.object.pk})
+        
+class CarDelete(DeleteView):
+    model = Cars
+    template_name = "car_delete_confirmation.html"
+    success_url = "/cars/"
