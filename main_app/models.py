@@ -15,3 +15,12 @@ class Car(models.Model):
 
     class Meta:
         ordering = ['name']
+        
+class Color(models.Model):
+
+    description = models.CharField(max_length=100, default="Describe Color")
+    link = models.CharField(max_length=150)
+    name = models.ForeignKey(Car, on_delete=models.CASCADE, related_name="colors")
+
+    def __str__(self):
+        return self.description

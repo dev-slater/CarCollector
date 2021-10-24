@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.views import View # <- View class to handle requests
 from django.http import HttpResponse # <- a class to handle sending a type of response
 from .models import Car as Cars
+from .models import Color as Colors
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView
 
@@ -45,7 +46,7 @@ class CarList(TemplateView):
 class CarDetail(DetailView):
         model = Cars
         template_name = "car_detail.html"
-        
+                
 class CarCreate(CreateView):
         model = Cars
         fields = ['name','img','bio','vintage_car']
@@ -67,3 +68,19 @@ class CarDelete(DeleteView):
     model = Cars
     template_name = "car_delete_confirmation.html"
     success_url = "/cars/"
+    
+class ColorCreate(CreateView):
+        model = Colors
+        fields = ['name','link', 'description']
+        template_name = "color_create.html"
+        
+        def get_success_url(self):
+                return reverse('color_list', kwargs={'pk': self.object.pk})
+
+class ColorList(TemplateView):
+    template_name = "color_list.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["colors"] = Colors.objects.all() # Here we are using the model to query the database for us.
+        return context
