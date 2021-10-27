@@ -82,5 +82,6 @@ class ColorList(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["colors"] = Colors.objects.all() # Here we are using the model to query the database for us.
+        name = self.kwargs['pk']
+        context["Colors"] = Colors.objects.filter(name_id=name) # Here we are using the model to query the database for us.
         return context
