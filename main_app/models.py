@@ -20,7 +20,7 @@ class Color(models.Model):
 
     description = models.CharField(max_length=100, default="Describe Color")
     link = models.CharField(max_length=150)
-    name = models.ForeignKey(Car, on_delete=models.CASCADE, related_name="colors")
+    name = models.ForeignKey(Car, on_delete=models.CASCADE, related_name="colors", default=Car.name)
 
     def __str__(self):
         return self.description

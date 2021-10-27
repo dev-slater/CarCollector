@@ -73,9 +73,9 @@ class ColorCreate(CreateView):
         model = Colors
         fields = ['name','link', 'description']
         template_name = "color_create.html"
-        
+                      
         def get_success_url(self):
-                return reverse('color_list', kwargs={'pk': self.object.pk})
+                return reverse('car_list')
 
 class ColorList(TemplateView):
     template_name = "color_list.html"
