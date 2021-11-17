@@ -24,3 +24,10 @@ class Color(models.Model):
 
     def __str__(self):
         return self.description
+    
+class Garage(models.Model):
+    title = models.CharField(max_length=100)
+    cars = models.ManyToManyField(Car)
+        
+    def __str__(self):
+        return self.title
